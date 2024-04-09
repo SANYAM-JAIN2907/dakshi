@@ -1,0 +1,70 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+# Set up Selenium WebDriver (assuming Chrome)
+driver = webdriver.Chrome()
+
+# Step 1: Login
+def login(username, password):
+    driver.get("https://your-website.com/login")  # Replace with actual login URL
+    driver.find_element_by_id("username").send_keys(username)
+    driver.find_element_by_id("password").send_keys(password)
+    driver.find_element_by_id("login-button").click()  # Adjust based on your website's login button
+
+# Step 2: Navigate to certificates
+def navigate_to_certificates():
+    # Example: Assuming certificates link is in the navigation menu
+    certificates_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, "Certificates")))
+    certificates_link.click()
+
+# Step 3: Select certificate type
+def select_certificate_type(certificate_type):
+    # Example: Selecting a specific certificate type from a dropdown
+    certificate_dropdown = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "certificate-type")))
+    certificate_dropdown.send_keys(certificate_type)
+
+# Step 4: Search and select the student
+def search_and_select_student(student_name):
+    # Example: Typing student name into a search field and selecting from results
+    search_input = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "search-student")))
+    search_input.send_keys(student_name)
+    # Logic to select the correct student from search results
+
+# Step 5: Click on generate
+def click_generate():
+    generate_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "generate-button")))
+    generate_button.click()
+
+# Step 6: Update remarks
+def update_remarks(remarks):
+    remarks_input = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "remarks")))
+    remarks_input.send_keys(remarks)
+
+# Step 7: Generate and download
+def generate_and_download():
+    generate_and_download_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.ID, "generate-download-button")))
+    generate_and_download_button.click()
+
+# Step 8: Validate history of certificates
+def validate_certificate_history():
+    # Example: Navigate to certificate history page and validate the latest entry
+    history_link = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, "Certificate History")))
+    history_link.click()
+    # Logic to validate the latest entry in the history
+
+# Execute the steps
+try:
+    login("your_username", "your_password")
+    navigate_to_certificates()
+    select_certificate_type("School Leaving Certificate")
+    search_and_select_student("Sam")
+    click_generate()
+    update_remarks("Automated certificate generation")
+    generate_and_download()
+    validate_certificate_history()
+
+finally:
+    # Close the browser session
+    driver.quit()
